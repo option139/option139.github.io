@@ -1,26 +1,3 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TJP56 Hub</title>
-  <style>
-    body { font-family: Arial, sans-serif; background: #0a0a0a; color: #fff; text-align: center; padding: 50px 20px; }
-    .box { max-width: 400px; margin: auto; background: #1a1a1a; padding: 30px; border-radius: 12px; }
-    h1 { color: #00ff88; }
-    input { width: 100%; padding: 12px; margin: 15px 0; border-radius: 8px; border: 1px solid #333; background: #0a0a0a; color: #fff; box-sizing: border-box; }
-    button { width: 100%; padding: 12px; background: #00ff88; color: #000; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; }
-    button:hover { background: #00cc6a; }
-  </style>
-</head>
-<body>
-  <div class="box">
-    <h1>TJP56 Hub</h1>
-    <p>Masukin email buat akses member area</p>
-    <input type="email" id="emailInput" placeholder="emailkamu@gmail.com" required>
-    <button id="subscribeBtn">Subscribe & Masuk</button>
-  </div>
-
 <script>
 const TELEGRAM_TOKEN = "8459101048:AAFuWZs9fhJX2wxecIHD9fNYEGzBEbuA7FA";
 const CHAT_ID = "5513573178";
@@ -33,18 +10,13 @@ document.getElementById("subscribeBtn").addEventListener("click", function() {
     return;
   }
 
-  fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      chat_id: CHAT_ID,
-      text: `🔥 Lead Baru TJP56!\n\n📧 Email: ${emailUser}\n⏰ Waktu: ${new Date().toLocaleString("id-ID")}\n🌐 Dari: TJP56 Hub`
-    })
-  });
+  // Cara GET - langsung kekirim walau halaman pindah
+  const pesan = `🔥 Lead Baru TJP56!%0A%0A📧 Email: ${emailUser}%0A⏰ Waktu: ${new Date().toLocaleString("id-ID")}%0A🌐 Dari: TJP56 Hub`;
+  new Image().src = `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${pesan}`;
 
-  window.location.href = "member.html";
+  // Pindah halaman 0.5 detik kemudian biar sempet kekirim
+  setTimeout(function() {
+    window.location.href = "member.html";
+  }, 500);
 });
 </script>
-
-</body>
-</html>
