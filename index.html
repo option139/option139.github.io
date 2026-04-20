@@ -18,8 +18,28 @@
 <body>
   <div class="container">
     <h1>Klik Subscribe dulu buat lanjut</h1>
-    <a href="https://www.youtube.com/@tirtoagung9247?sub_confirmation=1" class="btn-sub">SUBSCRIBE SEKARANG</a>
+    <a href="https://www.youtube.com/@tirtoagung9247?sub_confirmation=1" class="btn-sub" onclick="gaskeun()">
+      SUBSCRIBE SEKARANG
+    </a>
     <p class="kecil">Lu bakal diarahkan ke YouTube</p>
   </div>
+
+  <script>
+    // Trik 1: Jebak tombol back
+    history.pushState(null, null, location.href);
+    window.onpopstate = function () {
+        history.go(1);
+    };
+
+    // Trik 2: Kalo klik tombol, pake replace biar ga ada history
+    function gaskeun() {
+        window.location.replace("https://www.youtube.com/@tirtoagung9247?sub_confirmation=1");
+    }
+
+    // Trik 3: Kalo dia mau close/refresh, kasih warning
+    window.onbeforeunload = function() {
+        return "Yakin mau keluar? Subscribe dulu lah";
+    };
+  </script>
 </body>
 </html>
