@@ -1,47 +1,45 @@
 <!DOCTYPE html>
-<html lang="id">
+<html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TJP56 Hub</title>
+  <title>TJP56 - Daftar</title>
   <style>
-    body { font-family: Arial, sans-serif; background: #0a0a0a; color: #fff; text-align: center; padding: 50px 20px; }
-    .box { max-width: 400px; margin: auto; background: #1a1a1a; padding: 30px; border-radius: 12px; }
-    h1 { color: #00ff88; }
-    input { width: 100%; padding: 12px; margin: 15px 0; border-radius: 8px; border: 1px solid #333; background: #0a0a0a; color: #fff; box-sizing: border-box; }
-    button { width: 100%; padding: 12px; background: #00ff88; color: #000; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; }
+    body { font-family: Arial, sans-serif; text-align: center; padding: 40px; }
+    input { padding: 12px; width: 250px; margin: 10px; border: 1px solid #ccc; border-radius: 8px; }
+    button { padding: 12px 24px; background: #000; color: #fff; border: none; border-radius: 8px; cursor: pointer; }
+    button:disabled { background: #888; }
   </style>
 </head>
 <body>
-  <div class="box">
-    <h1>TJP56 Hub</h1>
-    <p>Masukin email buat akses member area</p>
-    
-    <!-- INI FORMNYA. LANGSUNG KE TELEGRAM VIA FORMSUBMIT -->
-    <form action="https://formsubmit.co/ajax/5513573178@telegram-notify.com" method="POST">
-      <input type="email" name="Email Lead TJP56" placeholder="emailkamu@gmail.com" required>
-      
-      <!-- Config biar langsung redirect & kirim ke Telegram -->
-      <input type="hidden" name="_captcha" value="false">
-      <input type="hidden" name="_next" value="https://option139.github.io/member.html">
-      <input type="hidden" name="_template" value="table">
-      <input type="hidden" name="_subject" value="🔥 Lead Baru TJP56!">
-      <input type="hidden" name="_autoresponse" value="Thanks bro, lu udah kedaftar di TJP56 Hub!">
-      
-      <button type="submit">Subscribe & Masuk</button>
-    </form>
-  </div>
 
-<script>
-// Kirim notif ke Telegram via FormSubmit -> Telegram Bot
-document.querySelector("form").addEventListener("submit", function() {
-  const email = document.querySelector('input[type="email"]').value;
-  const pesan = `🔥 Lead Baru TJP56!%0A%0A📧 Email: ${email}%0A⏰ Waktu: ${new Date().toLocaleString("id-ID")}%0A🌐 Dari: TJP56 Hub`;
-  
-  // Trik: kirim pake image biar jalan di background
-  new Image().src = `https://api.telegram.org/bot8459101048:AAFuWZs9fhJX2wxecIHD9fNYEGzBEbuA7FA/sendMessage?chat_id=5513573178&text=${pesan}`;
-});
-</script>
+  <h2>Masukin Email Lu Bro</h2>
+  <p>Dapetin akses TJP56 sekarang</p>
+  <form id="leadForm">
+    <input type="email" id="email" placeholder="email@tjp56.com" required>
+    <br>
+    <button type="submit" id="submitBtn">Gas Kirim</button>
+  </form>
+
+  <script>
+    const WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbwjBaY2aGJ1Qnfc3LLXaMilEtOrqPJY-Faek0OgXcPRVKbxfLYcIoSXN7o_tpcpbTzMew/exec';
+    
+    document.getElementById('leadForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const email = document.getElementById('email').value;
+      const btn = document.getElementById('submitBtn');
+      btn.disabled = true;
+      btn.innerText = 'Ngirim...';
+
+      // 1. Tembak webhook dulu
+      fetch(WEBHOOK_URL + '?email=' + encodeURIComponent(email))
+        .finally(() => {
+          // 2. Pake location.replace biar history ketimpa. BACK GA BISA BALIK.
+          window.location.replace('success.html');
+        });
+    });
+  </script>
 
 </body>
 </html>
