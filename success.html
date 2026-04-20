@@ -1,31 +1,106 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TJP56 - Berhasil</title>
+  <title>TJP56 - Akses Dibuka</title>
   <style>
-    body { font-family: Arial, sans-serif; text-align: center; padding: 40px; }
-    button { padding: 12px 24px; background: #000; color: #fff; border: none; border-radius: 8px; cursor: pointer; }
+    body { 
+      font-family: sans-serif; 
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+      background: #f6f8fa;
+      overflow: hidden;
+    }
+    #subscribe-popup {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.96);
+      z-index: 99999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .popup-box {
+      background: #ffffff;
+      padding: 35px 25px;
+      border-radius: 12px;
+      text-align: center;
+      max-width: 380px;
+      width: 90%;
+      font-family: sans-serif;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+    }
+    .popup-box h2 {
+      margin: 0 0 15px 0;
+      color: #24292e;
+      font-size: 24px;
+    }
+    .popup-box p {
+      color: #57606a;
+      margin: 0 0 25px 0;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+    .btn-yt {
+      background: #ff0000;
+      color: #fff;
+      padding: 14px 28px;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: bold;
+      display: inline-block;
+      font-size: 16px;
+      width: 80%;
+    }
+    .btn-tele {
+      background: #0088cc;
+      color: #fff;
+      padding: 14px 28px;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: bold;
+      display: inline-block;
+      font-size: 16px;
+      width: 80%;
+      margin-top: 10px;
+    }
   </style>
 </head>
 <body>
 
-  <h2>🔥 Sip, Udah Masuk Bro!</h2>
-  <p>Email lu udah kita catet.</p>
-  <p>Cek Telegram admin buat info selanjutnya ya.</p>
-  <p>Follow juga IG kita: @tjp56</p>
-  
-  <!-- Tombol ini buat ke home, bukan balik ke form -->
-  <button onclick="window.location.href='/'">Ke Halaman Utama</button>
+  <!-- POP-UP SUBSCRIBE LOCK - INI JADI HALAMAN UTAMANYA -->
+  <div id="subscribe-popup">
+    <div class="popup-box">
+      <div style="font-size:45px;margin-bottom:10px;">🔥</div>
+      <h2>Email Berhasil Dicatett!</h2>
+      <p>Thanks bro udah join TJP56. Langkah terakhir: Join Telegram + Subscribe YouTube gue biar dapet update dev & tools gratis.</p>
+      
+      <a href="https://t.me/tjp56" target="_blank" class="btn-tele">
+        JOIN TELEGRAM TJP56
+      </a>
+      
+      <a href="https://www.youtube.com/channel/UCIemYSaukVDIewgZEcsbTBQ?sub_confirmation=1" target="_blank" class="btn-yt">
+        SUBSCRIBE YOUTUBE
+      </a>
+      
+      <p style="margin:20px 0 0 0;color:#8c959f;font-size:12px;">Tombol back udah dimatiin. Join aja bro 😁</p>
+    </div>
+  </div>
 
   <script>
-    // CEGAH USER NEKEN BACK PAKSA
-    history.pushState(null, null, location.href);
-    window.onpopstate = function() {
-      history.go(1);
-    };
+  // 1. ANTI BACK: Bikin ga bisa balik ke form index.html
+  history.pushState(null, null, location.href);
+  window.onpopstate = function () {
+    history.go(1);
+  };
+  
+  // 2. Cegah refresh ilangin popup. Halaman ini emang popup-nya.
+  document.body.style.overflow = 'hidden';
   </script>
-
 </body>
 </html>
