@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TJP56 - Akses Dibuka</title>
+  <title>TJP56 - Akses Dikunci</title>
   <style>
     body { 
       font-family: sans-serif; 
@@ -56,51 +56,67 @@
       display: inline-block;
       font-size: 16px;
       width: 80%;
+      border: none;
+      cursor: pointer;
     }
-    .btn-tele {
-      background: #0088cc;
+    .btn-menu {
+      background: #2da44e;
       color: #fff;
       padding: 14px 28px;
       text-decoration: none;
       border-radius: 8px;
       font-weight: bold;
-      display: inline-block;
+      display: none;
       font-size: 16px;
       width: 80%;
       margin-top: 10px;
+    }
+    #status-text {
+      display: none;
+      color: #2da44e;
+      font-weight: 600;
+      margin: 15px 0 5px 0;
     }
   </style>
 </head>
 <body>
 
-  <!-- POP-UP SUBSCRIBE LOCK - INI JADI HALAMAN UTAMANYA -->
   <div id="subscribe-popup">
     <div class="popup-box">
-      <div style="font-size:45px;margin-bottom:10px;">🔥</div>
-      <h2>Email Berhasil Dicatett!</h2>
-      <p>Thanks bro udah join TJP56. Langkah terakhir: Join Telegram + Subscribe YouTube gue biar dapet update dev & tools gratis.</p>
+      <div style="font-size:45px;margin-bottom:10px;">🔒</div>
+      <h2>Akses Dikunci</h2>
+      <p><strong>Untuk membuka halaman ini harus subscribe YouTube dulu.</strong><br>Gratis kok bro, 1x klik doang.</p>
       
-      <a href="https://t.me/tjp56" target="_blank" class="btn-tele">
-        JOIN TELEGRAM TJP56
+      <a href="https://www.youtube.com/channel/UCIemYSaukVDIewgZEcsbTBQ?sub_confirmation=1" target="_blank" class="btn-yt" id="subBtn">
+        SUBSCRIBE YOUTUBE SEKARANG
       </a>
       
-      <a href="https://www.youtube.com/channel/UCIemYSaukVDIewgZEcsbTBQ?sub_confirmation=1" target="_blank" class="btn-yt">
-        SUBSCRIBE YOUTUBE
+      <p id="status-text">✅ Sip! Thanks udah subscribe bro</p>
+      <a href="/menu-utama.html" class="btn-menu" id="menuBtn">
+        BUKA MENU UTAMA
       </a>
       
-      <p style="margin:20px 0 0 0;color:#8c959f;font-size:12px;">Tombol back udah dimatiin. Join aja bro 😁</p>
+      <p style="margin:20px 0 0 0;color:#8c959f;font-size:12px;">Tombol back udah dimatiin. Subscribe aja bro 😁</p>
     </div>
   </div>
 
   <script>
-  // 1. ANTI BACK: Bikin ga bisa balik ke form index.html
+  // ANTI BACK
   history.pushState(null, null, location.href);
   window.onpopstate = function () {
     history.go(1);
   };
-  
-  // 2. Cegah refresh ilangin popup. Halaman ini emang popup-nya.
   document.body.style.overflow = 'hidden';
-  </script>
-</body>
-</html>
+
+  // MUNCULIN TOMBOL MENU SETELAH KLIK SUBSCRIBE
+  const subBtn = document.getElementById('subBtn');
+  const menuBtn = document.getElementById('menuBtn');
+  const statusText = document.getElementById('status-text');
+  let sudahKlikSub = false;
+
+  subBtn.addEventListener('click', function() {
+    sudahKlikSub = true;
+  });
+
+  document.addEventListener('visibilitychange', function() {
+    if (document.visibility
