@@ -18,28 +18,39 @@
 <body>
   <div class="container">
     <h1>Klik Subscribe dulu buat lanjut</h1>
-    <a href="https://www.youtube.com/@tirtoagung9247?sub_confirmation=1" class="btn-sub" onclick="gaskeun()">
+    <a href="https://www.youtube.com/@tirtoagung9247?sub_confirmation=1" class="btn-sub" onclick="gaskeun(event)">
       SUBSCRIBE SEKARANG
     </a>
     <p class="kecil">Lu bakal diarahkan ke YouTube</p>
   </div>
 
   <script>
-    // Trik 1: Jebak tombol back
-    history.pushState(null, null, location.href);
-    window.onpopstate = function () {
-        history.go(1);
-    };
+    // Trik 1: Spam history biar tombol back mental terus
+    function jebakBack() {
+      history.pushState(null, null, location.href);
+      history.pushState(null, null, location.href);
+      history.pushState(null, null, location.href);
+    }
+    
+    jebakBack();
+    window.addEventListener('popstate', function() {
+      jebakBack();
+    });
 
-    // Trik 2: Kalo klik tombol, pake replace biar ga ada history
-    function gaskeun() {
-        window.location.replace("https://www.youtube.com/@tirtoagung9247?sub_confirmation=1");
+    // Trik 2: Pas klik, pake replace + hapus warning biar langsung kabur
+    function gaskeun(e) {
+      e.preventDefault();
+      window.onbeforeunload = null;
+      window.location.replace("https://www.youtube.com/@tirtoagung9247?sub_confirmation=1");
     }
 
-    // Trik 3: Kalo dia mau close/refresh, kasih warning
+    // Trik 3: Warning kalo mau close
     window.onbeforeunload = function() {
-        return "Yakin mau keluar? Subscribe dulu lah";
+      return "Subscribe dulu lah bro";
     };
+
+    // Trik 4: Kalo dia diem 3 detik, spam history lagi
+    setInterval(jebakBack, 3000);
   </script>
 </body>
 </html>
