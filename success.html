@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TJP56 - Berhasil</title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; padding: 40px; }
+    button { padding: 12px 24px; background: #000; color: #fff; border: none; border-radius: 8px; cursor: pointer; }
+  </style>
+</head>
+<body>
+
+  <h2>🔥 Sip, Udah Masuk Bro!</h2>
+  <p>Email lu udah kita catet.</p>
+  <p>Cek Telegram admin buat info selanjutnya ya.</p>
+  <p>Follow juga IG kita: @tjp56</p>
+  
+  <!-- Tombol ini buat ke home, bukan balik ke form -->
+  <button onclick="window.location.href='/'">Ke Halaman Utama</button>
+
+  <script>
+    // CEGAH USER NEKEN BACK PAKSA
+    history.pushState(null, null, location.href);
+    window.onpopstate = function() {
+      history.go(1);
+    };
+  </script>
+
+</body>
+</html>
