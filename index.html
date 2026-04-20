@@ -3,54 +3,76 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Subscribe Tirto Agung</title>
+  <title>TJP56 - Dev Project</title>
   <style>
-    * {margin:0;padding:0;box-sizing:border-box;}
-    body {background:#0f0f0f;color:white;font-family:Arial,sans-serif;height:100vh;display:flex;justify-content:center;align-items:center;text-align:center;overflow:hidden;}
-    .container{padding:20px;}
-    h1{font-size:24px;margin-bottom:30px;color:#fff;}
-    .btn-sub{background:#ff0000;color:white;border:none;padding:20px 40px;font-size:22px;font-weight:bold;border-radius:8px;cursor:pointer;animation:pulse 1.5s infinite;text-decoration:none;display:inline-block;}
-    .btn-sub:hover{background:#cc0000;}
-    @keyframes pulse{0%{transform:scale(1);}50%{transform:scale(1.05);}100%{transform:scale(1);}}
-    .kecil{margin-top:25px;font-size:12px;color:#aaa;}
+    body { 
+      font-family: sans-serif; 
+      max-width: 800px; 
+      margin: 50px auto; 
+      padding: 20px; 
+      line-height: 1.6;
+      background: #f6f8fa;
+    }
+    h1 { color: #24292e; }
+    .project { 
+      background: #fff;
+      border: 1px solid #d0d7de; 
+      padding: 20px; 
+      margin: 15px 0; 
+      border-radius: 6px; 
+    }
+    a { color: #0969da; text-decoration: none; font-weight: 600; }
+    a:hover { text-decoration: underline; }
+    code { background: #f6f8fa; padding: 2px 6px; border-radius: 3px; }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Klik Subscribe dulu buat lanjut</h1>
-    <a href="https://www.youtube.com/@tirtoagung9247?sub_confirmation=1" class="btn-sub" onclick="gaskeun(event)">
-      SUBSCRIBE SEKARANG
-    </a>
-    <p class="kecil">Lu bakal diarahkan ke YouTube</p>
+  <h1>TJP56 Project Hub</h1>
+  <p>Repo ini isinya project software development & eksperimen ngoding gue, Eko.</p>
+  
+  <div class="project">
+    <h3>1. YouTube Subscribe Lock</h3>
+    <p>Script JavaScript buat nampilin pop-up subscribe wajib + anti back button. Script ini yg lagi jalan di halaman ini.</p>
+    <p>Fitur: <code>sessionStorage</code>, <code>history.pushState</code>, overlay full screen.</p>
+    <a href="https://www.youtube.com/channel/UCIemYSaukVDIewgZEcsbTBQ" target="_blank">Channel: TIRTOAGUNG</a>
+  </div>
+
+  <div class="project">
+    <h3>2. GitHub Profile</h3>
+    <p>Semua source code & tools gratis ada di sini.</p>
+    <a href="https://github.com/option139" target="_blank">github.com/option139</a>
+  </div>
+
+  <p><strong>Contact:</strong> dr.wodyodinengrat@gmail.com</p>
+
+  <!-- POP-UP SUBSCRIBE MAKSA + ANTI BACK -->
+  <div id="subscribe-popup" style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.96);z-index:99999;display:flex;align-items:center;justify-content:center;">
+    <div style="background:#ffffff;padding:35px 25px;border-radius:12px;text-align:center;max-width:380px;width:90%;font-family:sans-serif;box-shadow:0 10px 40px rgba(0,0,0,0.3);">
+      <div style="font-size:45px;margin-bottom:10px;">🔒</div>
+      <h2 style="margin:0 0 15px 0;color:#24292e;font-size:24px;">Akses Dikunci</h2>
+      <p style="color:#57606a;margin:0 0 25px 0;font-size:15px;line-height:1.5;">Subscribe channel YouTube gue dulu buat buka konten dev di web ini. Gratis kok.</p>
+      <a href="https://www.youtube.com/channel/UCIemYSaukVDIewgZEcsbTBQ?sub_confirmation=1" target="_blank" onclick="unlockSite()" style="background:#ff0000;color:#fff;padding:14px 28px;text-decoration:none;border-radius:8px;font-weight:bold;display:inline-block;font-size:16px;width:80%;">
+        SUBSCRIBE BUAT BUKA
+      </a>
+      <p style="margin:20px 0 0 0;color:#8c959f;font-size:12px;">Tombol back udah dimatiin. Subscribe aja bro 😁</p>
+    </div>
   </div>
 
   <script>
-    // Trik 1: Spam history biar tombol back mental terus
-    function jebakBack() {
-      history.pushState(null, null, location.href);
-      history.pushState(null, null, location.href);
-      history.pushState(null, null, location.href);
-    }
-    
-    jebakBack();
-    window.addEventListener('popstate', function() {
-      jebakBack();
-    });
-
-    // Trik 2: Pas klik, pake replace + hapus warning biar langsung kabur
-    function gaskeun(e) {
-      e.preventDefault();
-      window.onbeforeunload = null;
-      window.location.replace("https://www.youtube.com/@tirtoagung9247?sub_confirmation=1");
-    }
-
-    // Trik 3: Warning kalo mau close
-    window.onbeforeunload = function() {
-      return "Subscribe dulu lah bro";
-    };
-
-    // Trik 4: Kalo dia diem 3 detik, spam history lagi
-    setInterval(jebakBack, 3000);
+  document.body.style.overflow = 'hidden';
+  function unlockSite() {
+    document.getElementById('subscribe-popup').style.display = 'none';
+    document.body.style.overflow = 'auto';
+    sessionStorage.setItem('tjp56_unlocked', 'yes');
+  }
+  if(sessionStorage.getItem('tjp56_unlocked') === 'yes') {
+    document.getElementById('subscribe-popup').style.display = 'none';
+    document.body.style.overflow = 'auto';
+  }
+  history.pushState(null, null, location.href);
+  window.onpopstate = function () {
+    history.go(1);
+  };
   </script>
 </body>
 </html>
