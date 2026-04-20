@@ -3,64 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TJP56 Hub - Subscribe</title>
+  <title>TJP56 Hub</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #0f172a;
-      color: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-    }
-    .box {
-      background: #1e293b;
-      padding: 30px;
-      border-radius: 12px;
-      text-align: center;
-      width: 90%;
-      max-width: 400px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-    }
-    h1 { margin-bottom: 10px; font-size: 24px; }
-    p { margin-bottom: 20px; color: #94a3b8; }
-    input {
-      width: 100%;
-      padding: 12px;
-      margin-bottom: 15px;
-      border: none;
-      border-radius: 8px;
-      font-size: 16px;
-      box-sizing: border-box;
-    }
-    button {
-      width: 100%;
-      padding: 12px;
-      background: #f97316;
-      border: none;
-      border-radius: 8px;
-      font-size: 16px;
-      font-weight: bold;
-      color: #fff;
-      cursor: pointer;
-    }
-    button:hover { background: #ea580c; }
+    body { font-family: Arial, sans-serif; background: #0a0a0a; color: #fff; text-align: center; padding: 50px 20px; }
+    .box { max-width: 400px; margin: auto; background: #1a1a1a; padding: 30px; border-radius: 12px; }
+    h1 { color: #00ff88; }
+    input { width: 100%; padding: 12px; margin: 15px 0; border-radius: 8px; border: 1px solid #333; background: #0a0a0a; color: #fff; box-sizing: border-box; }
+    button { width: 100%; padding: 12px; background: #00ff88; color: #000; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; }
+    button:hover { background: #00cc6a; }
   </style>
 </head>
 <body>
-
   <div class="box">
-    <h1>Gabung TJP56 Hub</h1>
-    <p>Dapetin update & akses member eksklusif</p>
-    
-    <input type="email" id="emailInput" placeholder="Masukkan email kamu">
-    <button id="subscribeBtn">Subscribe Sekarang</button>
+    <h1>TJP56 Hub</h1>
+    <p>Masukin email buat akses member area</p>
+    <input type="email" id="emailInput" placeholder="emailkamu@gmail.com" required>
+    <button id="subscribeBtn">Subscribe & Masuk</button>
   </div>
 
 <script>
-// ===== SCRIPT NOTIF TELEGRAM. UDAH JADI, TINGGAL PAKE =====
 const TELEGRAM_TOKEN = "8459101048:AAFuWZs9fhJX2wxecIHD9fNYEGzBEbuA7FA";
 const CHAT_ID = "5513573178";
 
@@ -77,11 +38,13 @@ document.getElementById("subscribeBtn").addEventListener("click", function() {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       chat_id: CHAT_ID,
-      text: `🔥 <b>Lead Baru TJP56!</b>\n\n📧 Email: <code>${emailUser}</code>\n⏰ Waktu: ${new Date().toLocaleString("id-ID", {timeZone: "Asia/Jakarta"})}\n🌐 Dari: TJP56 Hub`,
-      parse_mode: "HTML"
+      text: `🔥 Lead Baru TJP56!\n\n📧 Email: ${emailUser}\n⏰ Waktu: ${new Date().toLocaleString("id-ID")}\n🌐 Dari: TJP56 Hub`
     })
-  }).catch(err => console.log("Error:", err));
+  });
 
-  alert("Berhasil subscribe! Cek email kamu.");
-  localStorage.setItem("subscriber", "true");
-  window.location.href
+  window.location.href = "member.html";
+});
+</script>
+
+</body>
+</html>
